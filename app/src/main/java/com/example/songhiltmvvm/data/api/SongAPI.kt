@@ -6,7 +6,7 @@ import retrofit2.http.GET
 
 interface SongAPI {
 
-    @GET("public/search?term=classick&amp;media=music&amp;entity=song&amp;limit=50")
+    @GET("search?term=classick&amp;media=music&amp;entity=song&amp;limit=50")
     suspend fun getAllList(): Response<SongsModel>
 
 }
