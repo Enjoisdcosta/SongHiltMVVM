@@ -24,18 +24,13 @@ class SongViewModel @Inject constructor(private val marvelRepository: SongReposi
     viewModelScope.launch(Dispatchers.IO) {
         val response = marvelRepository.getAllSong()
 
-        if (response.isSuccessful) {
-            songLiveData.postValue(response.body())
-        } else {
-            errorLivedata.postValue(response.errorBody().toString())
-            Log.i("Data_Marvel", response.errorBody().toString())
-//
-//            }
+        if (response.isSuccessful && response.body() != null) {
+            val results = response.body()?.results ?: emptyList()
+            songLiveData.postValue(results.filterNotNull())
+        }
 
         }
     }
-}}
-
-private fun <T> MutableLiveData<T>.postValue(body: SongsModel?) {
-
 }
+
+

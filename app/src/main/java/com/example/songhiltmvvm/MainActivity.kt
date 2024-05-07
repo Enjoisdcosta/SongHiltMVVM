@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.songLiveData.observe(this) {
             Log.i("Song", it.toString())
 
-            binding.recyclerView2.apply {
+            binding.rvPeople.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = SongAdapter(it)
             }

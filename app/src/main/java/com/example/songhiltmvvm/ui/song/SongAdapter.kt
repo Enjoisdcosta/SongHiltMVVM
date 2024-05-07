@@ -8,20 +8,21 @@ import com.bumptech.glide.Glide
 import com.example.songhiltmvvm.R
 import com.example.songhiltmvvm.data.model.ResultModel
 import com.example.songhiltmvvm.data.model.SongsModel
-import com.example.songhiltmvvm.databinding.FragmentSongListBinding
-
+import com.example.songhiltmvvm.databinding.ItemSongBinding
+import com.example.songhiltmvvm.databinding.TestBinding
 class SongAdapter(
     val songList: List<ResultModel>
 ) : RecyclerView.Adapter<SongAdapter.MyViewHolder>() {
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val binding = FragmentSongListBinding.bind(itemView)
+        val binding = ItemSongBinding.bind(itemView)
         fun updateUI(songItemModel: ResultModel) {
             // handle the ui changes based on current data
             binding.apply {
-                Glide.with(itemView.context).load(songItemModel.artistViewUrl)
+                Glide.with(itemView.context)
+                    .load(songItemModel.artistViewUrl)
                     .placeholder(R.drawable.people_icon)
-                    .into(songImage)
-                songText.text = songItemModel.trackName
+                    .into(ivProfile)
+                tvFirstName.text = songItemModel.trackName
             }
         }
 
@@ -30,7 +31,7 @@ class SongAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.fragment_song_list, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_song, parent, false)
         )
     }
 
