@@ -22,15 +22,15 @@ class SongViewModel @Inject constructor(private val marvelRepository: SongReposi
     fun fetchSong(){
         viewModelScope.launch (Dispatchers.IO){
             val response = marvelRepository.getAllSong()
-            //200 or 404
+
             if (response.isSuccessful){
                 songLiveData.postValue(response.body())
             }
-            else {
-                errorLivedata.postValue(response.errorBody().toString())
-                Log.i("Data_Marvel", response.errorBody().toString())
-
-            }
+//            else {
+//                errorLivedata.postValue(response.errorBody().toString())
+//                Log.i("Data_Marvel", response.errorBody().toString())
+//
+//            }
 
         }
     }
