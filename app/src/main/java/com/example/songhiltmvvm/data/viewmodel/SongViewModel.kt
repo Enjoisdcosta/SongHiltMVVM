@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.songhiltmvvm.data.model.ResultModel
 import com.example.songhiltmvvm.data.model.SongsModel
 import com.example.songhiltmvvm.data.repository.SongRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,24 +15,27 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SongViewModel @Inject constructor(private val marvelRepository: SongRepository) : ViewModel() {
-    val songLiveData = MutableLiveData<SongsModel>()
+    val songLiveData = MutableLiveData<List<ResultModel>>()
     val errorLivedata = MutableLiveData<String>()
 
 
 //    @SuppressLint("SuspiciousIndentation")
-    fun fetchSong(){
-        viewModelScope.launch (Dispatchers.IO){
-            val response = marvelRepository.getAllSong()
+    fun fetchSong() {
+    viewModelScope.launch(Dispatchers.IO) {
+        val response = marvelRepository.getAllSong()
 
-            if (response.isSuccessful){
-                songLiveData.postValue(response.body())
-            }
-//            else {
-//                errorLivedata.postValue(response.errorBody().toString())
-//                Log.i("Data_Marvel", response.errorBody().toString())
+        if (response.isSuccessful) {
+            songLiveData.postValue(response.body())
+        } else {
+            errorLivedata.postValue(response.errorBody().toString())
+            Log.i("Data_Marvel", response.errorBody().toString())
 //
 //            }
 
         }
     }
+}}
+
+private fun <T> MutableLiveData<T>.postValue(body: SongsModel?) {
+
 }

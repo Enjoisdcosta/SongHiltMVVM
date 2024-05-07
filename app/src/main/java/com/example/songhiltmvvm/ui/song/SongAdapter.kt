@@ -1,23 +1,27 @@
 package com.example.songhiltmvvm.ui.song
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.songhiltmvvm.R
+import com.example.songhiltmvvm.data.model.ResultModel
 import com.example.songhiltmvvm.data.model.SongsModel
 import com.example.songhiltmvvm.databinding.FragmentSongListBinding
 
-class SongAdapter(val songList: List<SongsModel>,
-val function: (SongsModel) -> Unit
+class SongAdapter(
+    val songList: List<ResultModel>
 ) : RecyclerView.Adapter<SongAdapter.MyViewHolder>() {
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = FragmentSongListBinding.bind(itemView)
-        fun updateUI(peopleItemModel: SongsModel) {
+        fun updateUI(songItemModel: ResultModel) {
             // handle the ui changes based on current data
             binding.apply {
-
-
+                Glide.with(itemView.context).load(songItemModel.artistViewUrl)
+                    .placeholder(R.drawable.people_icon)
+                    .into(songImage)
+                songText.text = songItemModel.trackName
             }
         }
 
@@ -25,13 +29,16 @@ val function: (SongsModel) -> Unit
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        TODO("Not yet implemented")
+        return MyViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.fragment_song_list, parent, false)
+        )
     }
-
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        TODO("Not yet implemented")
-    }
-
 
     override fun getItemCount() = songList.size
+
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        holder.updateUI(songList[position])
+    }
 }
+
+
