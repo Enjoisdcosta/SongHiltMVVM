@@ -26,6 +26,6 @@ object SongModuel {
 
     @Singleton
     @Provides
-    fun provideITunesRepo(): SongRepository =
+    fun provideSongRepo(): SongRepository =
         SongRepository(provideAPIServiceObject())
 }

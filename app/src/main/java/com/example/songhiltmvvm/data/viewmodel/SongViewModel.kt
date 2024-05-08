@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SongViewModel @Inject constructor(private val marvelRepository: SongRepository) : ViewModel() {
+class SongViewModel @Inject constructor(private val songRepository: SongRepository) : ViewModel() {
     val songLiveData = MutableLiveData<List<ResultModel>>()
     val errorLivedata = MutableLiveData<String>()
 
@@ -22,7 +22,7 @@ class SongViewModel @Inject constructor(private val marvelRepository: SongReposi
 //    @SuppressLint("SuspiciousIndentation")
     fun fetchSong() {
     viewModelScope.launch(Dispatchers.IO) {
-        val response = marvelRepository.getAllSong()
+        val response = songRepository.getAllSong()
 
         if (response.isSuccessful && response.body() != null) {
             val results = response.body()?.results ?: emptyList()

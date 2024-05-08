@@ -18,17 +18,13 @@ class SongAdapter(
         fun updateUI(songItemModel: ResultModel) {
             // handle the ui changes based on current data
             binding.apply {
-                Glide.with(itemView.context)
-                    .load(songItemModel.artistViewUrl)
+                Glide.with(itemView.context).load(songItemModel.artistViewUrl)
                     .placeholder(R.drawable.people_icon)
                     .into(ivProfile)
                 tvFirstName.text = songItemModel.trackName
             }
         }
-
     }
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_song, parent, false)
