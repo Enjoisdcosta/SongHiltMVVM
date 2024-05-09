@@ -1,5 +1,6 @@
 package com.example.songhiltmvvm.ui.song
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import com.example.songhiltmvvm.data.model.ResultModel
 import com.example.songhiltmvvm.data.model.SongsModel
 import com.example.songhiltmvvm.databinding.ItemSongBinding
 import com.example.songhiltmvvm.databinding.TestBinding
+
 class SongAdapter(
     val songList: List<ResultModel>
 ) : RecyclerView.Adapter<SongAdapter.MyViewHolder>() {
@@ -18,13 +20,15 @@ class SongAdapter(
         fun updateUI(songItemModel: ResultModel) {
             // handle the ui changes based on current data
             binding.apply {
-                Glide.with(itemView.context).load(songItemModel.artistViewUrl)
+                Glide.with(ivProfile.context)
+                    .load(songItemModel.artworkUrl100)
                     .placeholder(R.drawable.people_icon)
-                    .into(ivProfile)
+                    .into(binding.ivProfile)
                 tvFirstName.text = songItemModel.trackName
             }
         }
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_song, parent, false)

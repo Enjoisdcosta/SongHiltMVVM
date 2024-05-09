@@ -19,15 +19,15 @@ class SongViewModel @Inject constructor(private val songRepository: SongReposito
     val errorLivedata = MutableLiveData<String>()
 
 
-//    @SuppressLint("SuspiciousIndentation")
+    //    @SuppressLint("SuspiciousIndentation")
     fun fetchSong() {
-    viewModelScope.launch(Dispatchers.IO) {
-        val response = songRepository.getAllSong()
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = songRepository.getAllSong()
 
-        if (response.isSuccessful && response.body() != null) {
-            val results = response.body()?.results ?: emptyList()
-            songLiveData.postValue(results.filterNotNull())
-        }
+            if (response.isSuccessful && response.body() != null) {
+                val results = response.body()?.results ?: emptyList()
+                songLiveData.postValue(results.filterNotNull())
+            }
 
         }
     }
